@@ -1,0 +1,13 @@
+diff --git a/node_modules/openai/core.js b/node_modules/openai/core.js
+index 3474e5c..c4b72b8 100644
+--- a/node_modules/openai/core.js
++++ b/node_modules/openai/core.js
+@@ -230,6 +253,8 @@ class APIClient {
+             // @ts-ignore node-fetch uses a custom AbortSignal type that is
+             // not compatible with standard web types
+             signal: options.signal ?? null,
++            // @ts-ignore Polyfilled fetch needs you to tell it if it has to stream the response
++            reactNative: { textStreaming: options.stream }
+         };
+         this.validateHeaders(reqHeaders, headers);
+         return { req, url, timeout };

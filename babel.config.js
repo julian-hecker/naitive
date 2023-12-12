@@ -5,6 +5,8 @@ module.exports = function (api) {
     plugins: [
       // Required for expo-router
       'expo-router/babel',
+      // https://callstack.github.io/react-native-paper/docs/guides/getting-started/
+      'react-native-paper/babel',
     ],
   };
 };

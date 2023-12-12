@@ -84,6 +84,13 @@ In Langchain, several modules make use of the [`for await...of`](https://develop
 
 You can only pass iterables or async iterables into a `for await` loop, which means the object you are iterating over must have a `Symbol.iterator` property or `Symbol.asyncIterator` property. As of November 2023, `Symbol.asyncIterator` may not be defined in React Native by default, and should be polyfilled.
 
+```js
+// https://www.npmjs.com/package/@azure/core-asynciterator-polyfill
+if (typeof Symbol === undefined || !Symbol.asyncIterator) {
+    Symbol.asyncIterator = Symbol.for('Symbol.asyncIterator');
+}
+```
+
 ### TikToken `SyntaxError: Invalid RegExp: Invalid Escape`
 
 In React Native's Hermes runtime, as you can tell, there are several JavaScript features which do not have full levels of support.
@@ -92,13 +99,6 @@ TikToken is used to count the tokens an LLM uses. When a response has finished s
 
 Solution is to patch LangChain to wrap the call with a try/catch. I have raised the [issue on the langchain-js repo here](https://github.com/langchain-ai/langchainjs/issues/3473)
 
-```js
-// https://www.npmjs.com/package/@azure/core-asynciterator-polyfill
-if (typeof Symbol === undefined || !Symbol.asyncIterator) {
-    Symbol.asyncIterator = Symbol.for('Symbol.asyncIterator');
-}
-```
-
 ## Todo
 
 -   [x] Polyfill missing modules
@@ -106,14 +106,11 @@ if (typeof Symbol === undefined || !Symbol.asyncIterator) {
 -   [x] Patch langchain's call to TikToken
 -   [x] Add conversations, local storage, etc
 -   [x] Store API keys using device storage
-    -   [ ] Store API keys securely
 -   [x] Persist conversations locally
-    -   [ ] Delete messages, manage convos
--   [ ] Allow users to customize and select a model
+-   [x] Delete messages, manage convos
+-   [x] Allow users to customize and select a model
+-   [x] Allow users to create conversations with custom settings (`session/new.tsx`)
 -   [ ] Stream Audio from TTS
--   [ ] Allow users to create conversations with custom settings (`session/new.tsx`)
--   [ ] Integrate LangChain memory, chains, vector, agents
--   [ ] Chain Builder
 
 ## Resources
 
